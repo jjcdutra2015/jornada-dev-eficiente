@@ -14,8 +14,8 @@ import java.time.LocalDateTime
 data class Autor(
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    val id: Long = 0L,
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    var id: Int? = null,
 
     @field:NotBlank
     val nome: String,
