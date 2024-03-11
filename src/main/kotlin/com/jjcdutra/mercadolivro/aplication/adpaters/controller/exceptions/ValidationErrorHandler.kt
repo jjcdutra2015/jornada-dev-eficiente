@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler
 class ValidationErrorHandler() {
 
     @ExceptionHandler(MethodArgumentNotValidException::class)
-    fun handleValidationError(exception: MethodArgumentNotValidException): ResponseEntity<ErrorResponse> {
+    fun handleValidationException(exception: MethodArgumentNotValidException): ResponseEntity<ErrorResponse> {
         val error = ErrorResponse(
             HttpStatus.UNPROCESSABLE_ENTITY.value(),
             Errors.MLOO1.message,
@@ -28,8 +28,8 @@ class ValidationErrorHandler() {
         return ResponseEntity(error, HttpStatus.UNPROCESSABLE_ENTITY)
     }
 
-    @ExceptionHandler(EmailDuplicadoException::class)
-    fun emailDuplicadoExceptionError(exception: EmailDuplicadoException): ResponseEntity<ErrorResponse> {
+    @ExceptionHandler(RegistroDuplicadoException::class)
+    fun handleRegistroDuplicadoException(exception: RegistroDuplicadoException): ResponseEntity<ErrorResponse> {
         val error = ErrorResponse(
             HttpStatus.CONFLICT.value(),
             exception.message,

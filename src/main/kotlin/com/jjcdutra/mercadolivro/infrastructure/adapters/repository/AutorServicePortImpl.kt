@@ -1,6 +1,6 @@
 package com.jjcdutra.mercadolivro.infrastructure.adapters.repository
 
-import com.jjcdutra.mercadolivro.aplication.adpaters.controller.exceptions.EmailDuplicadoException
+import com.jjcdutra.mercadolivro.aplication.adpaters.controller.exceptions.RegistroDuplicadoException
 import com.jjcdutra.mercadolivro.aplication.adpaters.controller.exceptions.enums.Errors
 import com.jjcdutra.mercadolivro.aplication.adpaters.controller.request.AutorRequest
 import com.jjcdutra.mercadolivro.aplication.adpaters.controller.response.AutorResponse
@@ -17,7 +17,7 @@ class AutorServicePortImpl(
 
         val emailDuplicado = springAutorRepository.existsByEmail(autor.email)
 
-        if (emailDuplicado) throw EmailDuplicadoException("E-mail já cadastrado: ${autor.email}", Errors.MLOO2.code)
+        if (emailDuplicado) throw RegistroDuplicadoException("E-mail já cadastrado: ${autor.email}", Errors.MLOO2.code)
 
         return springAutorRepository.save(autor).toResponse()
     }
