@@ -22,7 +22,6 @@ data class Autor(
 
     @field:NotBlank
     @field:Email
-    @field:EmailAvailable
     val email: String,
 
     @field:NotBlank

@@ -27,4 +27,15 @@ class ValidationErrorHandler() {
         )
         return ResponseEntity(error, HttpStatus.UNPROCESSABLE_ENTITY)
     }
+
+    @ExceptionHandler(EmailDuplicadoException::class)
+    fun emailDuplicadoExceptionError(exception: EmailDuplicadoException): ResponseEntity<ErrorResponse> {
+        val error = ErrorResponse(
+            HttpStatus.CONFLICT.value(),
+            exception.message,
+            exception.errorCode,
+            null
+        )
+        return ResponseEntity(error, HttpStatus.CONFLICT)
+    }
 }
