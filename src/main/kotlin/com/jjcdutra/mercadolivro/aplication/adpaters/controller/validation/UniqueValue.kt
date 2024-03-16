@@ -4,11 +4,14 @@ import jakarta.validation.Constraint
 import jakarta.validation.Payload
 import kotlin.reflect.KClass
 
-@Constraint(validatedBy = [EmailAvailableValidator::class])
+@MustBeDocumented
+@Constraint(validatedBy = [UniqueValueValidator::class])
 @Retention(AnnotationRetention.RUNTIME)
 @Target(AnnotationTarget.FIELD)
-annotation class EmailAvailable(
-    val message: String = "E-mail ja cadastrado",
+annotation class UniqueValue(
+    val message: String = "Registro cadastrado",
     val groups: Array<KClass<*>> = [],
-    val payload: Array<KClass<out Payload>> = []
+    val payload: Array<KClass<out Payload>> = [],
+    val fieldName: String,
+    val domainClass: KClass<*>
 )
