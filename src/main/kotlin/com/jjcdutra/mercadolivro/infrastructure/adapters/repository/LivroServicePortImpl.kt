@@ -1,6 +1,7 @@
 package com.jjcdutra.mercadolivro.infrastructure.adapters.repository
 
 import com.jjcdutra.mercadolivro.aplication.adpaters.controller.request.LivroRequest
+import com.jjcdutra.mercadolivro.aplication.adpaters.controller.response.ListaDeLivroResponse
 import com.jjcdutra.mercadolivro.aplication.adpaters.controller.response.LivroResponse
 import com.jjcdutra.mercadolivro.domain.ports.AutorServicePort
 import com.jjcdutra.mercadolivro.domain.ports.CategoriaServicePort
@@ -18,5 +19,16 @@ class LivroServicePortImpl(
         val livro = springLivroRepository.save(request.toModel(categoriaServicePort, autorServicePort))
 
         return livro.toResponse()
+    }
+
+    override fun listarLivros(): List<ListaDeLivroResponse> {
+        val livros = springLivroRepository.findAll()
+
+        return livros.map { livro ->
+            ListaDeLivroResponse(
+                id = livro.id,
+                titulo = livro.titulo
+            )
+        }
     }
 }

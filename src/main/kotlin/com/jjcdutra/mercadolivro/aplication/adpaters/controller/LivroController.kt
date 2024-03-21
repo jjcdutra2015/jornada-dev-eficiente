@@ -1,13 +1,11 @@
 package com.jjcdutra.mercadolivro.aplication.adpaters.controller
 
 import com.jjcdutra.mercadolivro.aplication.adpaters.controller.request.LivroRequest
+import com.jjcdutra.mercadolivro.aplication.adpaters.controller.response.ListaDeLivroResponse
 import com.jjcdutra.mercadolivro.aplication.adpaters.controller.response.LivroResponse
 import com.jjcdutra.mercadolivro.domain.ports.LivroServicePort
 import jakarta.validation.Valid
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/livros")
@@ -18,5 +16,10 @@ class LivroController(
     @PostMapping
     fun cria(@RequestBody @Valid request: LivroRequest): LivroResponse {
         return livroServicePort.criaLivro(request)
+    }
+
+    @GetMapping
+    fun findAll(): List<ListaDeLivroResponse> {
+        return livroServicePort.listarLivros()
     }
 }
