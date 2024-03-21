@@ -4,8 +4,11 @@ import com.jjcdutra.mercadolivro.aplication.adpaters.controller.exceptions.Regis
 import com.jjcdutra.mercadolivro.aplication.adpaters.controller.exceptions.enums.Errors
 import com.jjcdutra.mercadolivro.aplication.adpaters.controller.request.AutorRequest
 import com.jjcdutra.mercadolivro.aplication.adpaters.controller.response.AutorResponse
+import com.jjcdutra.mercadolivro.domain.Autor
 import com.jjcdutra.mercadolivro.domain.ports.AutorServicePort
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException
 import org.springframework.stereotype.Service
+import kotlin.jvm.optionals.getOrElse
 
 @Service
 class AutorServicePortImpl(
@@ -24,5 +27,9 @@ class AutorServicePortImpl(
 
     override fun emailAvailable(email: String): Boolean {
         return springAutorRepository.existsByEmail(email)
+    }
+
+    override fun findById(id: Int): Autor {
+        return springAutorRepository.findById(id).getOrElse { throw NotFoundException() }
     }
 }

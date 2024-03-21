@@ -16,6 +16,6 @@ data class Categoria(
     val nome: String,
 ) {
     fun toResponse(): CategoriaResponse {
-        return CategoriaResponse(nome = this.nome)
+        return CategoriaResponse(id = this.id, nome = this.nome)
     }
 }

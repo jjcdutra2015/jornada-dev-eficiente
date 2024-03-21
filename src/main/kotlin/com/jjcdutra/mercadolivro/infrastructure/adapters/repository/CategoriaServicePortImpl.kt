@@ -4,8 +4,12 @@ import com.jjcdutra.mercadolivro.aplication.adpaters.controller.exceptions.Regis
 import com.jjcdutra.mercadolivro.aplication.adpaters.controller.exceptions.enums.Errors
 import com.jjcdutra.mercadolivro.aplication.adpaters.controller.request.CategoriaRequest
 import com.jjcdutra.mercadolivro.aplication.adpaters.controller.response.CategoriaResponse
+import com.jjcdutra.mercadolivro.domain.Categoria
 import com.jjcdutra.mercadolivro.domain.ports.CategoriaServicePort
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException
 import org.springframework.stereotype.Service
+import java.util.*
+import kotlin.jvm.optionals.getOrElse
 
 @Service
 class CategoriaServicePortImpl(
@@ -29,5 +33,9 @@ class CategoriaServicePortImpl(
 
     override fun nomeDuplicado(nome: String): Boolean {
         return springCategoriaRepository.existsByNome(nome)
+    }
+
+    override fun findById(id: Int): Categoria {
+        return springCategoriaRepository.findById(id).getOrElse { throw NotFoundException() }
     }
 }
