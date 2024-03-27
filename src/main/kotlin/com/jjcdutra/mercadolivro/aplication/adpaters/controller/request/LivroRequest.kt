@@ -32,6 +32,7 @@ data class LivroRequest(
     val numeroDePaginas: Int,
 
     @field:NotBlank
+    @field:UniqueValue(fieldName = "isbn", domainClass = Livro::class)
     val isbn: String,
 
     @field:Future

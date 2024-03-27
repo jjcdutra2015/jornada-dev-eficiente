@@ -18,7 +18,6 @@ data class Livro(
     val id: Int? = null,
 
     @field:NotBlank
-    @field:UniqueValue(domainClass = Livro::class, fieldName = "titulo")
     val titulo: String,
 
     @field:NotBlank
@@ -36,7 +35,6 @@ data class Livro(
     val numeroDePaginas: Int,
 
     @field:NotBlank
-    @field:UniqueValue(domainClass = Livro::class, fieldName = "isbn")
     val isbn: String,
 
     @field:Future

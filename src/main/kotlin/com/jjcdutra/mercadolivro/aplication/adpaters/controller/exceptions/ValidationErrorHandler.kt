@@ -38,4 +38,15 @@ class ValidationErrorHandler() {
         )
         return ResponseEntity(error, HttpStatus.CONFLICT)
     }
+
+    @ExceptionHandler(NaoEncontradoException::class)
+    fun handleNaoEncontradoException(exception: NaoEncontradoException): ResponseEntity<ErrorResponse> {
+        val error = ErrorResponse(
+            HttpStatus.NOT_FOUND.value(),
+            exception.message,
+            exception.errorCode,
+            null
+        )
+        return ResponseEntity(error, HttpStatus.NOT_FOUND)
+    }
 }
