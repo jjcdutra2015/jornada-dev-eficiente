@@ -1,6 +1,6 @@
 package com.jjcdutra.mercadolivro.domain
 
-import com.jjcdutra.mercadolivro.aplication.adpaters.controller.response.CategoriaResponse
+import com.jjcdutra.mercadolivro.adpaters.input.controller.response.CategoriaResponse
 import jakarta.persistence.*
 import jakarta.validation.constraints.NotBlank
 

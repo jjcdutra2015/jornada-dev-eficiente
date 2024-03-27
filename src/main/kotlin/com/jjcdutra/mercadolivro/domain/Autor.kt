@@ -1,6 +1,6 @@
 package com.jjcdutra.mercadolivro.domain
 
-import com.jjcdutra.mercadolivro.aplication.adpaters.controller.response.AutorResponse
+import com.jjcdutra.mercadolivro.adpaters.input.controller.response.AutorResponse
 import jakarta.persistence.*
 import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.NotBlank

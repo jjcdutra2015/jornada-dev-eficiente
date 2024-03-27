@@ -1,7 +1,7 @@
 package com.jjcdutra.mercadolivro.domain.ports
 
-import com.jjcdutra.mercadolivro.aplication.adpaters.controller.request.CategoriaRequest
-import com.jjcdutra.mercadolivro.aplication.adpaters.controller.response.CategoriaResponse
+import com.jjcdutra.mercadolivro.adpaters.input.controller.request.CategoriaRequest
+import com.jjcdutra.mercadolivro.adpaters.input.controller.response.CategoriaResponse
 import com.jjcdutra.mercadolivro.domain.Categoria
 
 interface CategoriaServicePort {

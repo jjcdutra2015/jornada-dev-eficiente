@@ -1,23 +1,20 @@
-package com.jjcdutra.mercadolivro.domain
+package com.jjcdutra.mercadolivro.adpaters.input.controller.request
 
 import com.fasterxml.jackson.annotation.JsonFormat
-import com.jjcdutra.mercadolivro.adpaters.input.controller.response.LivroResponse
+import com.fasterxml.jackson.annotation.JsonFormat.Shape
 import com.jjcdutra.mercadolivro.adpaters.input.controller.validation.UniqueValue
-import jakarta.persistence.*
+import com.jjcdutra.mercadolivro.domain.Livro
+import com.jjcdutra.mercadolivro.domain.ports.AutorServicePort
+import com.jjcdutra.mercadolivro.domain.ports.CategoriaServicePort
 import jakarta.validation.constraints.*
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.util.*
 
-@Entity
-@Table(name = "livro")
-data class Livro(
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Int? = null,
+data class LivroRequest(
 
     @field:NotBlank
+    @field:UniqueValue(fieldName = "titulo", domainClass = Livro::class)
     val titulo: String,
 
     @field:NotBlank
@@ -35,25 +32,24 @@ data class Livro(
     val numeroDePaginas: Int,
 
     @field:NotBlank
+    @field:UniqueValue(fieldName = "isbn", domainClass = Livro::class)
     val isbn: String,
 
     @field:Future
-    @field:JsonFormat(pattern = "dd/MM/yyyy", shape = JsonFormat.Shape.STRING)
+    @field:JsonFormat(pattern = "dd/MM/yyyy", shape = Shape.STRING)
     val dataPublicacao: LocalDate,
 
     @field:NotNull
-    @field:ManyToOne
-    val categoria: Categoria,
+    val idCategoria: Int,
 
     @field:NotNull
-
-    @field:ManyToOne
-    val autor: Autor
+    val idAutor: Int
 ) {
 
-    fun toResponse(): LivroResponse =
-        LivroResponse(
-            id = this.id,
+    fun toModel(categoriaServicePort: CategoriaServicePort, autorServicePort: AutorServicePort): Livro {
+        val categoria = categoriaServicePort.findById(idCategoria)
+        val autor = autorServicePort.findById(idAutor)
+        return Livro(
             titulo = this.titulo,
             resumo = this.resumo,
             sumario = this.sumario,
@@ -61,7 +57,8 @@ data class Livro(
             numeroDePaginas = this.numeroDePaginas,
             isbn = this.isbn,
             dataPublicacao = this.dataPublicacao,
-            categoria = this.categoria,
-            autor = this.autor
+            categoria = categoria,
+            autor = autor
         )
+    }
 }
